@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<repositories version="1.0">
+	<repo quality="experimental" status="unofficial">
+		<name>comio-overlay</name>
+		<description lang="en">My Personal and UNSTABLE Ebuilds</description>
+		<homepage>https://github.com/comio/comio-overlay</homepage>
+		<owner type="person">
+			<email>luigi.mantellini@gmail.com</email>
+			<name>Luigi 'Comio' Mantellini</name>
+		</owner>
+		<source type="git">https://github.com/comio/comio-overlay.git</source>
+		<source type="git">git://github.com/comio/comio-overlay.git</source>
+		<feed>https://github.com/comio/comio-overlay/commits/master.atom</feed>
+	</repo>
+</repositories>
