@@ -1,0 +1,14 @@
+--- ./config.tests/unix/openssl/openssl.cpp.old	2016-10-15 17:08:36.432115188 +0200
++++ ./config.tests/unix/openssl/openssl.cpp	2016-10-15 17:09:48.628278503 +0200
+@@ -39,9 +39,11 @@
+ 
+ #include <openssl/ssl.h>
+ 
++#ifndef LIBRESSL_VERSION_NUMBER
+ #if OPENSSL_VERSION_NUMBER-0 >= 0x10002000L && !defined(OPENSSL_NO_EC) && !defined(SSL_CTRL_SET_CURVES)
+ #  error "OpenSSL was reported as >= 1.0.2 but is missing required features, possibly it's libressl which is unsupported"
+ #endif
++#endif
+ 
+ int main()
+ {
