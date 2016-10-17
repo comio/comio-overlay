@@ -1,0 +1,16 @@
+[Unit]
+Description=CouchPotato application instance
+After=network.target
+
+[Service]
+Environment=DATA_DIR=/var/couchpotato
+Environment=CONFIG_FILE=/etc/couchpotato/settings.conf
+EnvironmentFile=-/etc/couchpotato/couchpotato.env
+ExecStart=/var/lib/CouchPotatoServer/CouchPotato.py --daemon --data_dir "$DATA_DIR" --config_file "$CONFIG_FILE"
+GuessMainPID=no
+Type=forking
+User=couchpotato
+Group=couchpotato
+
+[Install]
+WantedBy=multi-user.target
