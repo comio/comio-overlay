@@ -8,7 +8,7 @@ inherit linux-info linux-mod eutils
 
 DESCRIPTION="r8168 driver for Realtek 8111/8168 PCI-E NICs"
 HOMEPAGE="http://www.realtek.com.tw"
-SRC_URI="http://12244.wpc.azureedge.net/8012244/drivers/rtdrivers/cn/nic/0005-${P}.tar.bz2 -> ${P}.tar.bz2"
+SRC_URI="http://12244.wpc.azureedge.net/8012244/drivers/rtdrivers/cn/nic/0006-${P}.tar.bz2 -> ${P}.tar.bz2"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -24,20 +24,8 @@ pkg_setup() {
 	BUILD_PARAMS="KERNELDIR=${KV_DIR}"
 }
 
-src_prepare() {
-	default
-
-	if kernel_is -ge 4 7; then
-		sed -i \
-			-e '/gso_min_segs/d' \
-			-e 's/dev->trans_start = jiffies/netif_trans_update(dev)/g' \
-			src/r8168_n.c || die
-	fi
-}
-
 src_install() {
 	linux-mod_src_install
-
 	dodoc README
 }
 
@@ -75,3 +63,4 @@ pkg_postinst()
 	sign_module
 	linux-mod_pkg_postinst
 }
+
