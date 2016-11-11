@@ -50,9 +50,11 @@ IUSE="${IUSE_VIDEO_CARDS}
 REQUIRED_USE="
 	|| ( gcrypt nettle openssl libressl )
 	d3d9?   ( dri3 gallium )
+	libressl? ( !openssl )
 	llvm?   ( gallium )
 	opencl? ( gallium llvm )
 	openmax? ( gallium )
+	openssl? ( !libressl )
 	gles1?  ( egl )
 	gles2?  ( egl )
 	vaapi? ( gallium )
