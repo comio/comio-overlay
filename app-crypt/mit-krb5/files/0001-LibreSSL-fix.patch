@@ -1,0 +1,63 @@
+From d8d66227b391d9c5f84a9fd229039958392d025f Mon Sep 17 00:00:00 2001
+From: Luigi 'Comio' Mantellini <luigi.mantellini@gmail.com>
+Date: Wed, 14 Dec 2016 11:43:45 +0100
+Subject: [PATCH] LibreSSL fix
+
+---
+ src/plugins/preauth/pkinit/pkinit_crypto_openssl.c | 10 +++++++++-
+ src/plugins/preauth/pkinit/pkinit_crypto_openssl.h |  2 +-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/plugins/preauth/pkinit/pkinit_crypto_openssl.c b/src/plugins/preauth/pkinit/pkinit_crypto_openssl.c
+index 7dcdf04..cf26d85 100644
+--- a/src/plugins/preauth/pkinit/pkinit_crypto_openssl.c
++++ b/src/plugins/preauth/pkinit/pkinit_crypto_openssl.c
+@@ -191,7 +191,7 @@ pkinit_pkcs11_code_to_text(int err);
+     (*_x509_pp) = PKCS7_cert_from_signer_info(_p7,_si)
+ #endif
+ 
+-#if OPENSSL_VERSION_NUMBER < 0x10100000L
++#if OPENSSL_VERSION_NUMBER < 0x10100000L || defined(LIBRESSL_VERSION_NUMBER)
+ 
+ /* 1.1 standardizes constructor and destructor names, renaming
+  * EVP_MD_CTX_{create,destroy} and deprecating ASN1_STRING_data. */
+@@ -3085,7 +3085,11 @@ typedef struct {
+ ASN1_SEQUENCE(DHvparams) = {
+     ASN1_SIMPLE(int_dhvparams, seed, ASN1_BIT_STRING),
+     ASN1_SIMPLE(int_dhvparams, counter, BIGNUM)
++#if defined(LIBRESSL_VERSION_NUMBER)
++} ASN1_SEQUENCE_END_name(int_dhvparams, DHvparams)
++#else
+ } static_ASN1_SEQUENCE_END_name(int_dhvparams, DHvparams)
++#endif
+ 
+ ASN1_SEQUENCE(DHxparams) = {
+     ASN1_SIMPLE(int_dhx942_dh, p, BIGNUM),
+@@ -3093,7 +3097,11 @@ ASN1_SEQUENCE(DHxparams) = {
+     ASN1_OPT(int_dhx942_dh, q, BIGNUM),
+     ASN1_OPT(int_dhx942_dh, j, BIGNUM),
+     ASN1_OPT(int_dhx942_dh, vparams, DHvparams),
++#if defined(LIBRESSL_VERSION_NUMBER)
++} ASN1_SEQUENCE_END_name(int_dhx942_dh, DHxparams)
++#else
+ } static_ASN1_SEQUENCE_END_name(int_dhx942_dh, DHxparams)
++#endif
+ 
+ static DH *
+ decode_dh_params(const uint8_t *p, unsigned int len)
+diff --git a/src/plugins/preauth/pkinit/pkinit_crypto_openssl.h b/src/plugins/preauth/pkinit/pkinit_crypto_openssl.h
+index 2fe357c..3a300e9 100644
+--- a/src/plugins/preauth/pkinit/pkinit_crypto_openssl.h
++++ b/src/plugins/preauth/pkinit/pkinit_crypto_openssl.h
+@@ -46,7 +46,7 @@
+ #include <openssl/asn1.h>
+ #include <openssl/pem.h>
+ 
+-#if OPENSSL_VERSION_NUMBER >= 0x10100000L
++#if (OPENSSL_VERSION_NUMBER >= 0x10100000L) || defined(LIBRESSL_VERSION_NUMBER)
+ #include <openssl/asn1t.h>
+ #else
+ #include <openssl/asn1_mac.h>
+-- 
+2.11.0
+
