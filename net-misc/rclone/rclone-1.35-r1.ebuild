@@ -10,7 +10,7 @@ EGO_PN="${EGO_SRC}"
 KEYWORDS="~amd64 ~x86"
 SRC_URI="https://${EGO_SRC}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
-inherit golang-build golang-vcs-snapshot
+inherit systemd golang-build golang-vcs-snapshot
 
 DESCRIPTION="Sync files to and from Google Drive, S3, Swift, Cloudfiles, Dropbox, ..."
 HOMEPAGE="http://rclone.org"
@@ -24,4 +24,5 @@ src_install() {
 	exeinto /usr/bin
 	doexe "${S}/${PN}"
 	doman "${S}/src/${EGO_SRC}/${PN}.1"
+	systemd_douserunit "${FILESDIR}/rclone-mount@.service"
 }
