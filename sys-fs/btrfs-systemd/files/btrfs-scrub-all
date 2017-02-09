@@ -1,0 +1,27 @@
+#!/bin/bash
+
+declare -A devices
+
+while read -r device mountpoint type junk; do
+	case "$type" in
+		btrfs)
+			echo $device . $mountpoint . $type
+			devices[$device]=$device
+			;;
+	esac
+done < /proc/mounts
+
+status=0
+for device in ${devices[@]}; do
+	echo Scrubbing $device
+	btrfs scrub start -Bd $device
+	err=$?
+	if [ $err -ne 0 ]; then
+		status=$err
+	fi
+done
+exit $status
+
+
+
+
