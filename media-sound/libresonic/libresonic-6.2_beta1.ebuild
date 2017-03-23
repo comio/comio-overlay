@@ -56,7 +56,7 @@ src_install() {
 	newinitd "${FILESDIR}/libresonic.initd" libresonic
 	newconfd "${FILESDIR}/libresonic.confd" libresonic
 
-	dobin "${FILESDIR}/libresonic"
+	make_wrapper "${PN}" "${FILESDIR}/libresonic.sh"
 
 	if use ffmpeg; then
 		dodir ${LIBRESONIC_HOME}/transcode
