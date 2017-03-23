@@ -38,8 +38,7 @@ pkg_setup() {
 
 src_compile() {
 	cd "${S}"
-	mvn -Dmaven.repo.local="/tmp/.m2" package || die
-#	mvn -Dmaven.repo.local="${S}/.m2" package || die
+	mvn -Dmaven.repo.local="${S}/.m2" package || die
 }
 
 src_install() {
@@ -50,13 +49,16 @@ src_install() {
 	insinto ${dir}
 	doins "${S}/libresonic-main/target/${PN}.war"
 
+	exeinto ${dir}
+	doexe "${FILEDIRS}/libresonic.sh"
+
 	systemd_dounit "${FILESDIR}/libresonic.service"
 	systemd_install_serviced "${FILESDIR}/libresonic.service.conf"
 
 	newinitd "${FILESDIR}/libresonic.initd" libresonic
 	newconfd "${FILESDIR}/libresonic.confd" libresonic
 
-	make_wrapper "${PN}" "${FILESDIR}/libresonic.sh"
+	make_wrapper "${PN}" "${dir}/libresonic.sh"
 
 	if use ffmpeg; then
 		dodir ${LIBRESONIC_HOME}/transcode
