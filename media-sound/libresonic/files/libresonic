@@ -1,0 +1,5 @@
+#!/bin/sh
+
+java -jar /usr/libexec/libresonic/libresonic.war "$@"
+
+
