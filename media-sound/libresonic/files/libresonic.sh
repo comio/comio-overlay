@@ -121,7 +121,7 @@ ${JAVA} -Xmx${LIBRESONIC_MAX_MEMORY}m \
   -Dlibresonic.defaultPlaylistFolder=${LIBRESONIC_DEFAULT_PLAYLIST_FOLDER} \
   -Djava.awt.headless=true \
   -verbose:gc \
-  -jar libresonic-booter-jar-with-dependencies.jar > ${LOG} 2>&1 &
+  -jar libresonic.war > ${LOG} 2>&1 &
 
 # Write pid to pidfile if it is defined.
 if [ $LIBRESONIC_PIDFILE ]; then
