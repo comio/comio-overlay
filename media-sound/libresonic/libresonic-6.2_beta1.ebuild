@@ -50,7 +50,7 @@ src_install() {
 	doins "${S}/libresonic-main/target/${PN}.war"
 
 	exeinto ${dir}
-	doexe "${FILEDIRS}/libresonic.sh"
+	doexe "${FILESDIR}/libresonic.sh"
 
 	systemd_dounit "${FILESDIR}/libresonic.service"
 	systemd_install_serviced "${FILESDIR}/libresonic.service.conf"
