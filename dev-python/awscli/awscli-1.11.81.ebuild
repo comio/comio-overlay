@@ -1,10 +1,9 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
+PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
 inherit distutils-r1
 
@@ -21,7 +20,6 @@ RDEPEND="
 	dev-python/botocore[${PYTHON_USEDEP}]
 	dev-python/colorama[${PYTHON_USEDEP}]
 	dev-python/docutils[${PYTHON_USEDEP}]
-	dev-python/pyyaml[${PYTHON_USEDEP}]
 	<=dev-python/rsa-3.5.0[${PYTHON_USEDEP}]
 	>=dev-python/s3transfer-0.1.5[${PYTHON_USEDEP}]
 "
