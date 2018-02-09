@@ -50,17 +50,20 @@ src_install() {
 	newinitd "${FILESDIR}/${PN}.initd-2" "${PN}"
 	newconfd "${FILESDIR}/${PN}.confd-2" "${PN}"
 
-	exeinto /usr/sbin
+	exeinto "/usr/sbin"
 	doexe "bin/${PN}"
 
 	systemd_dounit "systemd/${PN}.service"
 	systemd_dounit "systemd/${PN}.socket"
 
-	insinto /etc/${PN}
+	insinto "/etc/${PN}"
 	newins "${PN}/example-blacklist.txt" "blacklist.txt"
 	newins "${PN}/example-cloaking-rules.txt" "cloaking-rules.txt"
 	newins "${PN}/example-dnscrypt-proxy.toml" "dnscrypt-proxy.toml"
 	newins "${PN}/example-forwarding-rules.txt" "forwarding-rules.txt"
+
+	insinto "/usr/share/${PN}"
+	doins -r "utils/generate-domains-blacklists/"
 }
 
 pkg_postinst() {
