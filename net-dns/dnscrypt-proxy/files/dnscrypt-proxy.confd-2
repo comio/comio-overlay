@@ -1,1 +1,0 @@
-DNSCRYPT_OPTS="--config /etc/dnscrypt-proxy/dnscrypt-proxy.toml"
