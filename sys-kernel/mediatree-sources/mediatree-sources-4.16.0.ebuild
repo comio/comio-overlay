@@ -22,20 +22,19 @@ MEDIATREE_URI="https://github.com/comio/linuxtv-mediatree-patches/archive/${MEDI
 DESCRIPTION="Full sources including the LinuxTV.org Media Tree patches and Gentoo patchset for the ${KV_MAJOR}.${KV_MINOR} kernel tree"
 SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI} ${MEDIATREE_URI}"
 
-# UNIPATCH_LIST=""
-# UNIPATCH_STRICTORDER=""
-
-# ${DISTDIR}/${MEDIATREE_FILE}:1
-
-# S="${WORKDIR}/linux-${PV}"
-
-src_prepare() {
-	einfo "Apply LinuxTV Media Tree patches"
+src_unpack() {
 	unpack "${MEDIATREE_FILE}"
-	eapply "${S}/${MEDIATREE_BASE}-${MEDIATREE_RELEASE}-${MEDIATREE_BASE}/"
-	rm -rf "${S}/${MEDIATREE_BASE}-${MEDIATREE_RELEASE}-${MEDIATREE_BASE}/"
 
-	default
+	einfo "Preparing LinuxTV Media Tree patches... "
+
+	UNIPATCH_LIST=""
+	for f in "${WORKDIR}/${MEDIATREE_BASE}-${MEDIATREE_RELEASE}-${MEDIATREE_BASE}/"*.patch; do
+		UNIPATCH_LIST+=" ${f}:1"
+	done
+	UNIPATCH_STRICTORDER="yes"
+	einfo "done."
+
+	kernel-2_src_unpack
 }
 
 pkg_postinst() {
