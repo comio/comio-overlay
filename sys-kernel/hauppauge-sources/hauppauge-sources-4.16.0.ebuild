@@ -11,7 +11,7 @@ detect_version
 detect_arch
 
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
-GHOMEPAGE="https://dev.gentoo.org/~mpagano/genpatches https://git.linuxtv.org/media_tree.git"
+HOMEPAGE="https://dev.gentoo.org/~mpagano/genpatches https://git.linuxtv.org/media_tree.git https://github.com/b-rad-NDi/Ubuntu-media-tree-kernel-builder"
 IUSE="experimental"
 
 MEDIATREE_RELEASE="20180323"
@@ -25,24 +25,29 @@ UBUNTUMEDIATREE_FILE="${UBUNTUMEDIATREE_BASE}.zip"
 UBUNTUMEDIATREE_URI="https://github.com/b-rad-NDi/Ubuntu-media-tree-kernel-builder/archive/${UBUNTUMEDIATREE_RELEASE}.zip"
 
 DESCRIPTION="Full sources including the LinuxTV.org Media Tree patches and Gentoo patchset for the ${KV_MAJOR}.${KV_MINOR} kernel tree"
-SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI} ${MEDIATREE_URI} ${UBUNTUMEDIATREE_URI} -> ${UBUNTUMEDIATREE_FILE}"
+SRC_URI="${KERNEL_URI} ${GENPATCHES_URI} ${ARCH_URI}
+	${MEDIATREE_URI} ${UBUNTUMEDIATREE_URI} -> ${UBUNTUMEDIATREE_FILE}"
 
 src_unpack() {
-	unpack "${MEDIATREE_FILE}"
-	unpack "${UBUNTUMEDIATREE_FILE}"
-	einfo "Preparing LinuxTV Media Tree patches... "
-
 	UNIPATCH_LIST=""
+	UNIPATCH_STRICTORDER="yes"
+
+	einfo "Preparing LinuxTV Media Tree patches... "
+	unpack "${MEDIATREE_FILE}"
 	for f in "${WORKDIR}/${MEDIATREE_BASE}-${MEDIATREE_RELEASE}-${MEDIATREE_BASE}/"*.patch; do
 		UNIPATCH_LIST+=" ${f}:1"
 	done
+
+	einfo "Preparing Ubuntu Media Tree patches... "
+	unpack "${UBUNTUMEDIATREE_FILE}"
 	for f in "${WORKDIR}/${UBUNTUMEDIATREE_BASE}/patches/mainline-extra/tip/"*/*.patch; do
 		UNIPATCH_LIST+=" ${f}:1"
 	done
-	UNIPATCH_STRICTORDER="yes"
-	einfo "done."
 
 	kernel-2_src_unpack
+
+	rm -rf "${WORKDIR}/${MEDIATREE_BASE}-${MEDIATREE_RELEASE}-${MEDIATREE_BASE}/"
+	rm -rf "${WORKDIR}/${UBUNTUMEDIATREE_BASE}"
 }
 
 pkg_postinst() {
