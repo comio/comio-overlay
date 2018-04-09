@@ -47,7 +47,7 @@ src_unpack() {
 
 	kernel-2_src_unpack
 
-	rm -rf "${WORKDIR}/${MEDIATREE_BASE}-${MEDIATREE_RELEASE}-${MEDIATREE_BASE}/"
+	rm -rf "${WORKDIR}/${MEDIATREE_SRC}-${MEDIATREE_RELEASE}"
 	rm -rf "${WORKDIR}/${UBUNTUMEDIATREE_BASE}"
 }
 
