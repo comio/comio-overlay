@@ -15,7 +15,7 @@ HOMEPAGE="https://dev.gentoo.org/~mpagano/genpatches https://git.linuxtv.org/med
 IUSE="experimental"
 
 MEDIATREE_SRC="linuxtv-mediatree-patches"
-MEDIATREE_RELEASE="4.16.1-mediatree"
+MEDIATREE_RELEASE="4.16.3-mediatree"
 MEDIATREE_BASE="v${MEDIATREE_RELEASE}"
 MEDIATREE_FILE="${MEDIATREE_BASE}.zip"
 MEDIATREE_URI="https://github.com/comio/${MEDIATREE_SRC}/archive/${MEDIATREE_FILE}"
