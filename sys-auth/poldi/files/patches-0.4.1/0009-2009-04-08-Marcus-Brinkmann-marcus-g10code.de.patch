@@ -1,0 +1,38 @@
+From b9dfe089948d3c5dd2438c4b47fb8b57e47fc36e Mon Sep 17 00:00:00 2001
+From: Marcus Brinkmann <mb@g10code.com>
+Date: Wed, 8 Apr 2009 13:27:05 +0000
+Subject: [PATCH 09/52] 2009-04-08  Marcus Brinkmann  <marcus@g10code.de>
+
+	* poldi.texi (Notes on Applications): Fix section menu.
+---
+ doc/ChangeLog  | 4 ++++
+ doc/poldi.texi | 1 +
+ 2 files changed, 5 insertions(+)
+
+diff --git a/doc/ChangeLog b/doc/ChangeLog
+index 75e6101..9c0b854 100644
+--- a/doc/ChangeLog
++++ b/doc/ChangeLog
+@@ -1,3 +1,7 @@
++2009-04-08  Marcus Brinkmann  <marcus@g10code.de>
++
++	* poldi.texi (Notes on Applications): Fix section menu.
++
+ 2009-03-29  Moritz  <moritz@gnu.org>
+ 
+ 	* poldi.texi (XScreensaver): New section.
+diff --git a/doc/poldi.texi b/doc/poldi.texi
+index 75e04e6..53bb152 100644
+--- a/doc/poldi.texi
++++ b/doc/poldi.texi
+@@ -563,6 +563,7 @@ configured to run prior to Poldi.
+ * login::
+ * su::
+ * gdm::
++* XScreensaver::
+ * xdm::
+ * kdm::
+ @end menu
+-- 
+2.17.0
+

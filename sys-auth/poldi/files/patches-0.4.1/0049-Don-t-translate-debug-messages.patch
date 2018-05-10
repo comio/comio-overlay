@@ -1,0 +1,145 @@
+From 6904ae208e81e19639c85edfaa76a4fea0a4074f Mon Sep 17 00:00:00 2001
+From: NIIBE Yutaka <gniibe@fsij.org>
+Date: Tue, 15 Nov 2016 12:11:44 +0900
+Subject: [PATCH 49/52] Don't translate debug messages.
+
+* src/scd/scd.c (scd_connect): No use of translation.
+* src/pam/auth-method-x509/auth-x509.c (auth_method_x509_auth_do): Ditto.
+* src/pam/auth-method-localdb/auth-localdb.c
+(auth_method_localdb_auth_do): Ditto.
+* src/pam/auth-method-x509/dirmngr.c (inq_cert): Ditto.
+* src/pam/pam_poldi.c (pam_sm_authenticate): Ditto.
+
+--
+Signed-off-by: NIIBE Yutaka <gniibe@fsij.org>
+---
+ src/pam/auth-method-localdb/auth-localdb.c | 4 ++--
+ src/pam/auth-method-x509/auth-x509.c       | 4 ++--
+ src/pam/auth-method-x509/dirmngr.c         | 2 +-
+ src/pam/pam_poldi.c                        | 8 ++++----
+ src/scd/scd.c                              | 6 +++---
+ 5 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/src/pam/auth-method-localdb/auth-localdb.c b/src/pam/auth-method-localdb/auth-localdb.c
+index 07dfe64..3081737 100644
+--- a/src/pam/auth-method-localdb/auth-localdb.c
++++ b/src/pam/auth-method-localdb/auth-localdb.c
+@@ -117,7 +117,7 @@ auth_method_localdb_auth_do (poldi_ctx_t ctx,
+ 
+   if (ctx->debug)
+     log_msg_debug (ctx->loghandle,
+-		   _("Trying authentication as user `%s'..."), username);
++		   "Trying authentication as user `%s'...", username);
+   if (!ctx->quiet)
+     conv_tell (ctx->conv,
+ 	       _("Trying authentication as user `%s'..."), username);
+@@ -129,7 +129,7 @@ auth_method_localdb_auth_do (poldi_ctx_t ctx,
+     {
+       if (ctx->debug)
+ 	log_msg_debug (ctx->loghandle,
+-		       _("Serial number %s is not associated with user %s"),
++		       "Serial number %s is not associated with user %s",
+ 		       ctx->cardinfo.serialno, username);
+       conv_tell (ctx->conv,
+ 		 _("Serial number %s is not associated with user %s"),
+diff --git a/src/pam/auth-method-x509/auth-x509.c b/src/pam/auth-method-x509/auth-x509.c
+index d71d988..3d7c0f2 100644
+--- a/src/pam/auth-method-x509/auth-x509.c
++++ b/src/pam/auth-method-x509/auth-x509.c
+@@ -500,7 +500,7 @@ auth_method_x509_auth_do (poldi_ctx_t ctx, x509_ctx_t cookie,
+ 
+   if (ctx->debug)
+     log_msg_debug (ctx->loghandle,
+-		   _("public key url is '%s'"), ctx->cardinfo.pubkey_url);
++		   "public key url is '%s'", ctx->cardinfo.pubkey_url);
+ 
+   /*** Fetch certificate. ***/
+ 
+@@ -596,7 +596,7 @@ auth_method_x509_auth_do (poldi_ctx_t ctx, x509_ctx_t cookie,
+   if (err)
+     log_msg_error (ctx->loghandle, _("failure: %s"), gpg_strerror (err));
+   else if (ctx->debug)
+-    log_msg_debug (ctx->loghandle, _("success"));
++    log_msg_debug (ctx->loghandle, "success");
+ 
+   return !err;
+ }
+diff --git a/src/pam/auth-method-x509/dirmngr.c b/src/pam/auth-method-x509/dirmngr.c
+index 79eedf5..a95bf71 100644
+--- a/src/pam/auth-method-x509/dirmngr.c
++++ b/src/pam/auth-method-x509/dirmngr.c
+@@ -150,7 +150,7 @@ inq_cert (void *opaque, const char *line)
+     {
+       /* We don't support this but dirmngr might ask for it.  So
+ 	 simply ignore it by sending back an empty value. */
+-      log_msg_debug (parm->ctx->log_handle, _("ignored inquiry from dirmngr: `%s'"), line);
++      log_msg_debug (parm->ctx->log_handle, "ignored inquiry from dirmngr: `%s'", line);
+       err = assuan_send_data (parm->ctx->assuan, NULL, 0);
+       if (err)
+ 	log_msg_error (parm->ctx->log_handle,
+diff --git a/src/pam/pam_poldi.c b/src/pam/pam_poldi.c
+index 6e01f10..5992e5c 100644
+--- a/src/pam/pam_poldi.c
++++ b/src/pam/pam_poldi.c
+@@ -587,14 +587,14 @@ pam_sm_authenticate (pam_handle_t *pam_handle,
+   if (pam_username)
+     {
+       if (ctx->debug)
+-	log_msg_debug (ctx->loghandle, _("Waiting for card for user `%s'..."), pam_username);
++	log_msg_debug (ctx->loghandle, "Waiting for card for user `%s'...", pam_username);
+       if (!ctx->quiet)
+ 	conv_tell (ctx->conv, _("Insert authentication card for user `%s'"), pam_username);
+     }
+   else
+     {
+       if (ctx->debug)
+-	log_msg_debug (ctx->loghandle, _("Waiting for card..."));
++	log_msg_debug (ctx->loghandle, "Waiting for card...");
+       if (!ctx->quiet)
+ 	conv_tell (ctx->conv, _("Insert authentication card"));
+     }
+@@ -616,7 +616,7 @@ pam_sm_authenticate (pam_handle_t *pam_handle,
+ 
+   if (ctx->debug)
+     log_msg_debug (ctx->loghandle,
+-		   _("connected to card; serial number is: %s"),
++		   "connected to card; serial number is: %s",
+ 		   ctx->cardinfo.serialno);
+ 
+   /*** Authenticate.  ***/
+@@ -664,7 +664,7 @@ pam_sm_authenticate (pam_handle_t *pam_handle,
+   else
+     {
+       if (ctx->debug)
+-	log_msg_debug (ctx->loghandle, _("authentication succeeded"));
++	log_msg_debug (ctx->loghandle, "authentication succeeded");
+       if (ctx->modify_environment)
+ 	modify_environment (pam_handle, ctx);
+     }
+diff --git a/src/scd/scd.c b/src/scd/scd.c
+index 709497d..fe6613a 100644
+--- a/src/scd/scd.c
++++ b/src/scd/scd.c
+@@ -253,8 +253,8 @@ scd_connect (scd_context_t *scd_ctx, int use_agent, const char *scd_path,
+ 
+       if (!err)
+ 	log_msg_debug (loghandle,
+-		       _("got scdaemon socket name from gpg-agent, "
+-			 "connected to socket '%s'"), scd_socket_name);
++		       "got scdaemon socket name from gpg-agent, "
++		       "connected to socket '%s'", scd_socket_name);
+ 
+       xfree (scd_socket_name);
+     }
+@@ -312,7 +312,7 @@ scd_connect (scd_context_t *scd_ctx, int use_agent, const char *scd_path,
+       else
+ 	{
+ 	  log_msg_debug (loghandle,
+-			 _("spawned a new scdaemon (path: '%s')"),
++			 "spawned a new scdaemon (path: '%s')",
+ 			 scd_path);
+ 	}
+     }
+-- 
+2.17.0
+

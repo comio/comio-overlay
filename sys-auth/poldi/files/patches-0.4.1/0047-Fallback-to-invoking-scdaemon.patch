@@ -1,0 +1,32 @@
+From 91aa9c96ab7d6a608c76a713b13b301e7ea5ff82 Mon Sep 17 00:00:00 2001
+From: Marc-Antoine Perennou <Marc-Antoine@perennou.com>
+Date: Fri, 11 Nov 2016 15:51:23 +0100
+Subject: [PATCH 47/52] Fallback to invoking scdaemon.
+
+* src/scd/scd.c (scd_connect): When gpg-agent is not available
+in the case of pam_username == username_of_process_uid, try
+normal way to invoke scdaemon through pipe.
+
+--
+
+Signed-off-by: Marc-Antoine Perennou <Marc-Antoine@Perennou.com>
+---
+ src/scd/scd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/scd/scd.c b/src/scd/scd.c
+index 5626187..f209940 100644
+--- a/src/scd/scd.c
++++ b/src/scd/scd.c
+@@ -264,7 +264,7 @@ scd_connect (scd_context_t *scd_ctx, int use_agent, const char *scd_path,
+ 			 gpg_strerror (rc));
+ 	}
+     }
+-  else
++  if (!use_agent || rc)
+     {
+       const char *pgmname;
+       const char *argv[5];
+-- 
+2.17.0
+

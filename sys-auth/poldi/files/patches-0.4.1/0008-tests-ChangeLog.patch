@@ -1,0 +1,91 @@
+From 0d6d60a49f7c5105ed8ec6f2328f65d9f493ba87 Mon Sep 17 00:00:00 2001
+From: Moritz Schulte <mo@g10code.com>
+Date: Sun, 29 Mar 2009 15:13:34 +0000
+Subject: [PATCH 08/52] tests/ChangeLog:
+
+2009-02-16  Moritz  <moritz@gnu.org>
+
+	* parse-test.c: Added comment.
+
+doc/ChangeLog:
+
+2009-03-29  Moritz  <moritz@gnu.org>
+
+	* poldi.texi (XScreensaver): New section.
+---
+ doc/ChangeLog      | 4 ++++
+ doc/poldi.texi     | 9 +++++++++
+ tests/ChangeLog    | 1 +
+ tests/parse-test.c | 7 +++++--
+ 4 files changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/doc/ChangeLog b/doc/ChangeLog
+index a98d52f..75e6101 100644
+--- a/doc/ChangeLog
++++ b/doc/ChangeLog
+@@ -1,3 +1,7 @@
++2009-03-29  Moritz  <moritz@gnu.org>
++
++	* poldi.texi (XScreensaver): New section.
++
+ 2009-02-16  Moritz  <moritz@gnu.org>
+ 
+ 	* poldi.texi (Configuration): Documentation bug fix: the option is
+diff --git a/doc/poldi.texi b/doc/poldi.texi
+index cd0fa35..75e04e6 100644
+--- a/doc/poldi.texi
++++ b/doc/poldi.texi
+@@ -597,6 +597,15 @@ At least the standard greeter can be used with Poldi just fine; the
+ graphical greeter obviously asks for usernames prior to triggering PAM
+ authentication.
+ 
++@node XScreensaver
++@section XScreensaver
++
++XScreensaver (at least Version >= 5.07, possibly earlier versions too)
++works quiet well with Poldi authentication.  By combining SCDaemons
++~/.gnupg/scd-event mechanism with the xscreensaver-command program, one
++can easily setup an environment in which the card-removal event triggers
++screen locking and the card-insertion event triggers screen unlocking.
++
+ @node xdm
+ @section xdm
+ 
+diff --git a/tests/ChangeLog b/tests/ChangeLog
+index 891aa83..d2266fa 100644
+--- a/tests/ChangeLog
++++ b/tests/ChangeLog
+@@ -1,5 +1,6 @@
+ 2009-02-16  Moritz  <moritz@gnu.org>
+ 
++	* parse-test.c: Added comment.
+ 	* README: Cosmetic change.
+ 	* pam-test.c (print_help): Cosmetic change.
+ 	(PROGRAM_VERSION): New symbol..
+diff --git a/tests/parse-test.c b/tests/parse-test.c
+index 6b37a72..3724b86 100644
+--- a/tests/parse-test.c
++++ b/tests/parse-test.c
+@@ -1,5 +1,5 @@
+ /* parse-test.c - test program for simpleparse.
+-   Copyright (C) 2008 g10 Code GmbH
++   Copyright (C) 2008, 2009 g10 Code GmbH
+  
+    This file is part of Poldi.
+  
+@@ -16,8 +16,11 @@
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, see
+    <http://www.gnu.org/licenses/>.  */
+- 
+ 
++/* For Poldi I wrote a minimalistic library for parsing configuration
++   files and command-line arguments named "simpleparse".  This is a
++   test program for simpleparse.  -mo */
++ 
+ #include <assert.h>
+ #include <stdio.h>
+ #include <stdarg.h>
+-- 
+2.17.0
+

@@ -1,0 +1,26 @@
+From 51ff0fe77a07a4a7386bda2a520e35b90d3a4611 Mon Sep 17 00:00:00 2001
+From: NIIBE Yutaka <gniibe@fsij.org>
+Date: Wed, 30 Apr 2014 17:15:11 +0900
+Subject: [PATCH 21/52] * src/pam/Makefile.am (pam_poldi.so): Use LDFLAGS and
+ GCC.
+
+---
+ src/pam/Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/pam/Makefile.am b/src/pam/Makefile.am
+index a056613..968fb71 100644
+--- a/src/pam/Makefile.am
++++ b/src/pam/Makefile.am
+@@ -61,7 +61,7 @@ libpam_poldi_a_SOURCES = \
+ 
+ pam_poldi.so: libpam_poldi.a $(AUTH_METHODS_LIBS) auth-support/libpam-poldi-auth-support.a \
+ 		../scd/libscd_shared.a ../util/libpoldi-util_shared.a
+-	gcc -shared -o pam_poldi.so -Wl,-u,pam_sm_authenticate \
++	$(CC) $(LDFLAGS) -shared -o pam_poldi.so -Wl,-u,pam_sm_authenticate \
+ 		libpam_poldi.a \
+ 		$(AUTH_METHODS_LIBS) auth-support/libpam-poldi-auth-support.a \
+ 		../scd/libscd_shared.a ../util/libpoldi-util_shared.a ../assuan/libassuan.a \
+-- 
+2.17.0
+

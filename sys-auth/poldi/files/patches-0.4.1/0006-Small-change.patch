@@ -1,0 +1,41 @@
+From 431f2335905320f2261450897d5a7d69d96d38b8 Mon Sep 17 00:00:00 2001
+From: Moritz Schulte <mo@g10code.com>
+Date: Mon, 16 Feb 2009 01:17:30 +0000
+Subject: [PATCH 06/52] Small change
+
+---
+ tests/README | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/tests/README b/tests/README
+index f9260cf..e281b57 100644
+--- a/tests/README
++++ b/tests/README
+@@ -1,7 +1,7 @@
+ README for pam-test
+ ===================
+ 
+-  Usage: pam-test [options] <service name>
++  Usage: pam-test [options] <PAM service name>
+   Test PAM authentication.
+   
+   Options:
+@@ -12,9 +12,12 @@ README for pam-test
+   Report bugs to <moritz@gnu.org>.
+ 
+ pam-test is a small utility suitable for testing authentication
+-through PAM. PAM authentication methods are identified by a "service
+-name" (e.g. "su", "login", "gdm"). Testing authentication is thus only
+-a matter of typing:
++through PAM. pam-test is not Poldi specific at all; rather it's a
++generic tool for testing authentication through PAM.
++
++PAM authentication methods are identified by a "service name"
++(e.g. "su", "login", "gdm"). Testing authentication is thus only a
++matter of typing:
+ 
+   $ ./pam-test SERVICENAME
+ 
+-- 
+2.17.0
+

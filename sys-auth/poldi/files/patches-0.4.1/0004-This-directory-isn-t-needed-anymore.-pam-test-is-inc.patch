@@ -1,0 +1,263 @@
+From 682882d33a45b22c48b80d1dd248b84384b4d5c3 Mon Sep 17 00:00:00 2001
+From: Moritz Schulte <mo@g10code.com>
+Date: Mon, 16 Feb 2009 01:10:48 +0000
+Subject: [PATCH 04/52] This directory isn't needed anymore. pam-test is
+ included in "tests/".
+
+---
+ src/pam-test/ChangeLog   |  11 ---
+ src/pam-test/Makefile.am |  28 ------
+ src/pam-test/README      |   1 -
+ src/pam-test/pam-test.c  | 179 ---------------------------------------
+ 4 files changed, 219 deletions(-)
+ delete mode 100644 src/pam-test/ChangeLog
+ delete mode 100644 src/pam-test/Makefile.am
+ delete mode 100644 src/pam-test/README
+ delete mode 100644 src/pam-test/pam-test.c
+
+diff --git a/src/pam-test/ChangeLog b/src/pam-test/ChangeLog
+deleted file mode 100644
+index 527fc1b..0000000
+--- a/src/pam-test/ChangeLog
++++ /dev/null
+@@ -1,11 +0,0 @@
+-2008-05-25  Moritz  <moritz@gnu.org>
+-
+-	* pam-test.c: Added GPL3 header.
+-
+-2007-12-15  Moritz Schulte  <moritz@g10code.com>
+-
+-	* pam-test.c: Slightly polished, uses getopt now.
+-
+-2007-12-13  Moritz Schulte  <moritz@g10code.com>
+-
+-	* pam-test.c, Makefile.am: New files.
+diff --git a/src/pam-test/Makefile.am b/src/pam-test/Makefile.am
+deleted file mode 100644
+index 102e2bc..0000000
+--- a/src/pam-test/Makefile.am
++++ /dev/null
+@@ -1,28 +0,0 @@
+-# Copyright (C) 2007 g10 Code GmbH
+-#
+-# This file is part of Poldi.
+-#
+-# Poldi is free software; you can redistribute it and/or modify it
+-# under the terms of the GNU General Public License as published by
+-# the Free Software Foundation; either version 2 of the License, or
+-# (at your option) any later version.
+-#
+-# Poldi is distributed in the hope that it will be useful, but WITHOUT
+-# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+-# or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+-# License for more details.
+-# 
+-# You should have received a copy of the GNU General Public License
+-# along with this program; if not, write to the Free Software
+-# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+-# 02111-1307, USA
+-
+-AM_CPPFLAGS =
+-include $(top_srcdir)/am/cmacros.am
+-
+-noinst_PROGRAMS = pam-test
+-
+-pam_test_SOURCES = pam-test.c
+-pam_test_CFLAGS = -Wall
+-
+-pam_test_LDADD = -lpam -lpam_misc
+diff --git a/src/pam-test/README b/src/pam-test/README
+deleted file mode 100644
+index e4f9b23..0000000
+--- a/src/pam-test/README
++++ /dev/null
+@@ -1 +0,0 @@
+-FIXME: document pam-test.
+diff --git a/src/pam-test/pam-test.c b/src/pam-test/pam-test.c
+deleted file mode 100644
+index 7ef30e5..0000000
+--- a/src/pam-test/pam-test.c
++++ /dev/null
+@@ -1,179 +0,0 @@
+-/* pam-test.c - simple PAM authentication test program
+-   Copyright (C) 2007 g10 Code GmbH
+- 
+-   This file is part of Poldi.
+- 
+-   Poldi is free software; you can redistribute it and/or modify it
+-   under the terms of the GNU General Public License as published by
+-   the Free Software Foundation; either version 3 of the License, or
+-   (at your option) any later version.
+- 
+-   Poldi is distributed in the hope that it will be useful, but
+-   WITHOUT ANY WARRANTY; without even the implied warranty of
+-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+-   General Public License for more details.
+- 
+-   You should have received a copy of the GNU General Public License
+-   along with this program; if not, see
+-   <http://www.gnu.org/licenses/>.  */
+- 
+-#include <stdio.h>
+-#include <stdlib.h>
+-#include <security/pam_appl.h>
+-#include <security/pam_misc.h>
+-#include <ctype.h>
+-#include <unistd.h>
+-#include <getopt.h>
+-#include <errno.h>
+-#include <string.h>
+-
+-
+-
+-#define PROGRAM_NAME "pam-test"
+-
+-/* Use the standard conversation function from libpam-misc. */
+-static struct pam_conv conv =
+-  {
+-    misc_conv,
+-    NULL
+-  };
+-
+-static void
+-print_help (void)
+-{
+-  printf ("\
+-Usage: %s [options] <service name>\n\
+-Test PAM authentication.\n\
+-\n\
+-Options:\n\
+- -h, --help      print help information\n\
+- -v, --version   print version information\n\
+- -u, --username  specify username for authentication\n\
+-\n\
+-Report bugs to <moritz@gnu.org>.\n", PROGRAM_NAME);
+-}
+-
+-static void
+-print_version (void)
+-{
+-  printf ("pam-test 0.1\n");
+-}
+-
+-static void
+-test_auth (const char *servicename, const char *username)
+-{
+-  const void *user_opaque;
+-  const char *user;
+-  pam_handle_t *handle;
+-  int rc;
+-
+-  /* Connect to PAM.  */
+-  rc = pam_start (servicename, username, &conv, &handle);
+-  if (rc != PAM_SUCCESS)
+-    {
+-      fprintf (stderr, "error: %s\n", pam_strerror (handle, rc));
+-      goto out;
+-    }
+-
+-  /* Try authentication.  */
+-  rc = pam_authenticate (handle, 0);
+-  if (rc != PAM_SUCCESS)
+-    {
+-      printf ("Authentication failed\n");
+-      fprintf (stderr, "error: %s\n", pam_strerror (handle, rc));
+-      goto out;
+-    }
+-
+-  printf ("Authentication succeeded\n");
+-
+-  /* Retrieve name of authenticated identity.  */
+-  rc = pam_get_item (handle, PAM_USER, &user_opaque);
+-  if (rc != PAM_SUCCESS)
+-    {
+-      fprintf (stderr, "error: %s\n", pam_strerror (handle, rc));
+-      goto out;
+-    }
+-  user = user_opaque;
+-  printf ("Authenticated as user `%s'\n", user);
+-
+-  /* Disconnect from PAM.  */
+-  rc = pam_end (handle, rc);
+-  if (rc != PAM_SUCCESS)
+-    fprintf (stderr, "error: failed to release PAM handle\n");
+-
+- out:
+-
+-  return;
+-}
+-
+-/* This is a simple test program for PAM authentication.  */
+-int
+-main (int argc, char **argv)
+-{
+-  const char *servicename;
+-  const char *username;
+-  int c;
+-
+-  servicename = username = NULL;
+-
+-  while (1)
+-    {
+-      static struct option long_options[] =
+-	{
+-	  { "version", no_argument, 0, 'v' },
+-	  { "help", no_argument, 0, 'h' },
+-	  { "user", required_argument, 0, 'u' },
+-	  { 0, 0, 0, 0 }
+-	};
+-      int option_index = 0;
+-
+-      c = getopt_long (argc, argv, "vhu:",
+-		       long_options, &option_index);
+-
+-      /* Detect the end of the options. */
+-      if (c == -1)
+-	break;
+-
+-      switch (c)
+-	{
+-	case 'u':
+-	  username = strdup (optarg);
+-	  if (!username)
+-	    {
+-	      fprintf (stderr, "failed to duplicate username: %s", strerror (errno));
+-	      exit (1);
+-	    }
+-	  break;
+-
+-	case 'h':
+-	  print_help ();
+-	  exit (0);
+-	  break;
+-
+-	case 'v':
+-	  print_version ();
+-	  exit (0);
+-	  break;
+-
+-	case '?':
+-	  /* `getopt_long' already printed an error message. */
+-	  break;
+-
+-	default:
+-	  abort ();
+-	}
+-    }
+-
+-  if (argc - optind != 1)
+-    {
+-      print_help ();
+-      exit (1);
+-    }
+-
+-  servicename = argv[optind];
+-  test_auth (servicename, username);
+-
+-  return 0;
+-}
+-
+-/* end */
+-- 
+2.17.0
+

@@ -1,0 +1,23 @@
+From 90f8fe57c85b326b047f605dcb4b8cd9ae3486a6 Mon Sep 17 00:00:00 2001
+From: NIIBE Yutaka <gniibe@fsij.org>
+Date: Wed, 30 Apr 2014 16:39:29 +0900
+Subject: [PATCH 17/52] * conf/poldi.conf.skel (scdaemon-program): Change the
+ path.
+
+---
+ conf/poldi.conf.skel | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/conf/poldi.conf.skel b/conf/poldi.conf.skel
+index 58967b3..3fed157 100644
+--- a/conf/poldi.conf.skel
++++ b/conf/poldi.conf.skel
+@@ -11,4 +11,4 @@ log-file /var/log/poldi
+ debug
+ 
+ # Specify SCDaemon executable
+-scdaemon-program /usr/bin/scdaemon
++scdaemon-program /usr/lib/gnupg2/scdaemon
+-- 
+2.17.0
+

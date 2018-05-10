@@ -1,0 +1,30 @@
+From 16912be8d2685e82a3fe40e94912e90cbb73e47b Mon Sep 17 00:00:00 2001
+From: NIIBE Yutaka <gniibe@fsij.org>
+Date: Mon, 7 Nov 2016 13:56:16 +0900
+Subject: [PATCH 40/52] Fix SERIALNO command.
+
+* src/scd/scd.c (scd_serialno_internal): No agent any more.
+
+--
+Signed-off-by: NIIBE Yutaka <gniibe@fsij.org>
+---
+ src/scd/scd.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/scd/scd.c b/src/scd/scd.c
+index abd63f9..a565f78 100644
+--- a/src/scd/scd.c
++++ b/src/scd/scd.c
+@@ -452,8 +452,7 @@ scd_serialno_internal (assuan_context_t ctx, char **r_serialno)
+ 
+   serialno = NULL;
+ 
+-  rc = assuan_transact (ctx, agent ? "SCD SERIALNO" : "SERIALNO",
+-                        NULL, NULL, NULL, NULL,
++  rc = assuan_transact (ctx, "SERIALNO", NULL, NULL, NULL, NULL,
+                         get_serialno_cb, &serialno);
+   if (rc)
+     goto out;
+-- 
+2.17.0
+

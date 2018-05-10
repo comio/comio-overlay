@@ -1,0 +1,52 @@
+From f98051e7faee74090dcba15f7ac7eb4714da390b Mon Sep 17 00:00:00 2001
+From: Moritz Schulte <mo@g10code.com>
+Date: Sat, 16 May 2009 14:46:01 +0000
+Subject: [PATCH 10/52] 2009-05-10  Moritz  <moritz@gnu.org>
+
+	* Makefile.am (parse_test_CFLAGS): Use $(GPG_ERROR_CFLAGS).
+	(parse_test_LDADD): Use $(GPG_ERROR_LIBS) and $(LIBGCRYPT_LIBS).
+---
+ tests/ChangeLog   | 5 +++++
+ tests/Makefile.am | 9 +++++----
+ 2 files changed, 10 insertions(+), 4 deletions(-)
+
+diff --git a/tests/ChangeLog b/tests/ChangeLog
+index d2266fa..80f7a40 100644
+--- a/tests/ChangeLog
++++ b/tests/ChangeLog
+@@ -1,3 +1,8 @@
++2009-05-10  Moritz  <moritz@gnu.org>
++
++	* Makefile.am (parse_test_CFLAGS): Use $(GPG_ERROR_CFLAGS).
++	(parse_test_LDADD): Use $(GPG_ERROR_LIBS) and $(LIBGCRYPT_LIBS).
++
+ 2009-02-16  Moritz  <moritz@gnu.org>
+ 
+ 	* parse-test.c: Added comment.
+diff --git a/tests/Makefile.am b/tests/Makefile.am
+index b9d4171..7128f92 100644
+--- a/tests/Makefile.am
++++ b/tests/Makefile.am
+@@ -1,4 +1,4 @@
+-# Copyright (C) 2008 g10 Code GmbH
++# Copyright (C) 2008, 2009 g10 Code GmbH
+ #
+ # This file is part of Poldi.
+ #
+@@ -20,9 +20,10 @@
+ noinst_PROGRAMS = parse-test pam-test
+ 
+ parse_test_SOURCES = parse-test.c
+-parse_test_CFLAGS = -Wall -I$(top_srcdir)/src/util -I$(top_srcdir)/src
+-
+-parse_test_LDADD = $(top_builddir)/src/util/libpoldi-util.a -lgcrypt
++parse_test_CFLAGS = -Wall -I$(top_srcdir)/src/util -I$(top_srcdir)/src \
++ $(GPG_ERROR_CFLAGS)
++parse_test_LDADD = $(top_builddir)/src/util/libpoldi-util.a \
++ $(GPG_ERROR_LIBS) $(LIBGCRYPT_LIBS)
+ 
+ pam_test_SOURCES = pam-test.c
+ pam_test_CFLAGS = -Wall
+-- 
+2.17.0
+

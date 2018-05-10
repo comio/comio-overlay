@@ -1,0 +1,25 @@
+From f6a3c0a443783b5923b32d28fd67900912b6ae7d Mon Sep 17 00:00:00 2001
+From: NIIBE Yutaka <gniibe@fsij.org>
+Date: Thu, 1 May 2014 14:00:26 +0900
+Subject: [PATCH 26/52] * src/ctrl/poldi-ctrl.c (main): Argv type fix.
+
+---
+ src/ctrl/poldi-ctrl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/ctrl/poldi-ctrl.c b/src/ctrl/poldi-ctrl.c
+index f595f01..3dc22f5 100644
+--- a/src/ctrl/poldi-ctrl.c
++++ b/src/ctrl/poldi-ctrl.c
+@@ -244,7 +244,7 @@ i18n_cb (void *cookie, const char *msg)
+ 
+ /* Main.  */
+ int
+-main (int argc, char **argv)
++main (int argc, const char **argv)
+ {
+   simpleparse_handle_t parsehandle;
+   unsigned int ncommands;
+-- 
+2.17.0
+

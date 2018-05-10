@@ -1,0 +1,205 @@
+From 88e2fe393b465d6ac3def5c786608f98bd53fae7 Mon Sep 17 00:00:00 2001
+From: NIIBE Yutaka <gniibe@fsij.org>
+Date: Fri, 4 Nov 2016 15:55:59 +0900
+Subject: [PATCH 34/52] Modify document for removal of poldi-ctrl.
+
+--
+Signed-off-by: NIIBE Yutaka <gniibe@fsij.org>
+---
+ conf/users.skel |  6 +++---
+ doc/poldi.texi  | 13 +++++++------
+ po/POTFILES.in  |  1 -
+ po/de.po        | 49 -------------------------------------------------
+ po/poldi.pot    | 49 -------------------------------------------------
+ 5 files changed, 10 insertions(+), 108 deletions(-)
+
+diff --git a/conf/users.skel b/conf/users.skel
+index 7ca3913..c2ba6f0 100644
+--- a/conf/users.skel
++++ b/conf/users.skel
+@@ -5,9 +5,9 @@
+ #   Entries are of the form: "<SERIALNO><WHITESPACES><USERNAME>\n"
+ #   (without quotation marks and without angle brackets.  Allowed
+ #   whitespaces are spaces and tabs.  <SERIALNO> is the serial number
+-#   of an OpenPGP smartcard as reported by poldi-ctrl
+-#   --print-serialno.  <USERNAME> is a valid username on the system.
+-#   Comments are opened with "#" and terminated by a newline.
++#   of an OpenPGP smartcard.  It can be obtained by "gpg --card-status"
++#   command as ``Application ID''.  <USERNAME> is a valid username on
++#   the system.  Comments are opened with "#" and terminated by a newline.
+ #
+ # So, a valid entry would look like:
+ #   "D2760001240101010001000006550000	moritz"
+diff --git a/doc/poldi.texi b/doc/poldi.texi
+index d098186..191a44a 100644
+--- a/doc/poldi.texi
++++ b/doc/poldi.texi
+@@ -142,9 +142,9 @@ associated with many users and one user can be associated with many
+ smartcards.
+ 
+ The public keys are stored in files in a subdirectory named
+-``keys''. The files are named after the card serial numbers and must
++``keys''.  The files are named after the card serial numbers and must
+ contain the public key as a single S-Expression as it is printed out
+-by poldi-ctrl.
++by gpg-connect-agent (See below).
+ 
+ The mapping between keys and Unix accounts is to be established by
+ adding appropriate entries to the user database file named ``users''.
+@@ -288,9 +288,10 @@ local usernames.  Syntax: this file consists of entries - one entry
+ per line.  Entries are of the form:
+ "<SERIALNO><WHITESPACES><USERNAME>\n" (without quotation marks and
+ without angle brackets.  Allowed whitespaces are spaces and tabs.
+-<SERIALNO> is the serial number of an OpenPGP smartcard as reported by
+-poldi-ctrl --print-serialno.  <USERNAME> is a valid username on the
+-system.  Comments are opened with "#" and terminated by a newline.
++<SERIALNO> is the serial number of an OpenPGP smartcard.  It can be
++obtained by "gpg --card-status" command as ``Application ID''.
++<USERNAME> is a valid username on the system.  Comments are opened
++with "#" and terminated by a newline.
+ 
+ @item Directory: keys
+ 
+@@ -354,7 +355,7 @@ card-specific key file.  Therefore he inserts Moritz' smartcard and
+ executes:
+ 
+ @example
+-$ poldi-ctrl --print-key > /etc/poldi/localdb/keys/D2760001240101010001000006550000
++$ gpg-connect-agent "/datafile /etc/poldi/localdb/keys/D2760001240101010001000006550000" "SCD READKEY --advanced OPENPGP.3" /bye
+ @end example
+ 
+ The administrator wants to allow Moritz to update his card's key
+diff --git a/po/POTFILES.in b/po/POTFILES.in
+index abda8f7..b631da8 100644
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -1,6 +1,5 @@
+ # List of source files which contain translatable strings.
+ 
+-./src/ctrl/poldi-ctrl.c
+ ./src/pam/auth-method-localdb/usersdb.c
+ ./src/pam/auth-method-localdb/auth-localdb.c
+ ./src/pam/auth-method-localdb/key-lookup.h
+diff --git a/po/de.po b/po/de.po
+index b24a46b..932bd1e 100644
+--- a/po/de.po
++++ b/po/de.po
+@@ -16,55 +16,6 @@ msgstr ""
+ "Content-Type: text/plain; charset=UTF-8\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ 
+-#: src/ctrl/poldi-ctrl.c:85
+-msgid "Dump certain card information"
+-msgstr "Informationen der Smartcard ausgeben"
+-
+-#: src/ctrl/poldi-ctrl.c:87
+-msgid "Print authentication key from card"
+-msgstr "Zeige Authentifikationsschlüssel der Karte an"
+-
+-#: src/ctrl/poldi-ctrl.c:89
+-msgid "Print serial number from card"
+-msgstr "Zeige Seriennummer der Karte an"
+-
+-#: src/ctrl/poldi-ctrl.c:93
+-msgid "Enable debugging mode"
+-msgstr "Aktiviere Debugging-Modus"
+-
+-#: src/ctrl/poldi-ctrl.c:269
+-#, c-format
+-msgid "failed to initialize logging: %s\n"
+-msgstr "konnte Protokollierung nicht initialisieren: %s\n"
+-
+-#: src/ctrl/poldi-ctrl.c:277
+-#, c-format
+-msgid "failed to set logging backend: %s\n"
+-msgstr "konnte Protokollierungs-Backend nicht aktivieren: %s\n"
+-
+-#: src/ctrl/poldi-ctrl.c:316
+-#, c-format
+-msgid "parsing argument vector failed: %s"
+-msgstr "Auswerten des Argumentvektors fehlgeschlagen: %s"
+-
+-#: src/ctrl/poldi-ctrl.c:328
+-msgid "more than one command specified (try --help)"
+-msgstr "mehr als ein Kommando angegeben (versuche --help)"
+-
+-#: src/ctrl/poldi-ctrl.c:333
+-msgid "no command specified (try --help)"
+-msgstr "kein Kommando angegeben (versuche --help)"
+-
+-#: src/ctrl/poldi-ctrl.c:343
+-#, c-format
+-msgid "failed to connect to scdaemon: %s"
+-msgstr "Verbinden zum Scdaemon fehlgeschlagen: %s"
+-
+-#: src/ctrl/poldi-ctrl.c:352
+-#, c-format
+-msgid "failed to retrieve smartcard data: %s"
+-msgstr "konnte Daten der Smartcard nicht empfangen: %s"
+-
+ #: src/pam/auth-method-localdb/auth-localdb.c:109
+ msgid "Please enter username: "
+ msgstr "Bitte Benutzername eingeben: "
+diff --git a/po/poldi.pot b/po/poldi.pot
+index b822d06..241e5bc 100644
+--- a/po/poldi.pot
++++ b/po/poldi.pot
+@@ -17,55 +17,6 @@ msgstr ""
+ "Content-Type: text/plain; charset=CHARSET\n"
+ "Content-Transfer-Encoding: 8bit\n"
+ 
+-#: src/ctrl/poldi-ctrl.c:85
+-msgid "Dump certain card information"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:87
+-msgid "Print authentication key from card"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:89
+-msgid "Print serial number from card"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:93
+-msgid "Enable debugging mode"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:269
+-#, c-format
+-msgid "failed to initialize logging: %s\n"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:277
+-#, c-format
+-msgid "failed to set logging backend: %s\n"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:316
+-#, c-format
+-msgid "parsing argument vector failed: %s"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:328
+-msgid "more than one command specified (try --help)"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:333
+-msgid "no command specified (try --help)"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:343
+-#, c-format
+-msgid "failed to connect to scdaemon: %s"
+-msgstr ""
+-
+-#: src/ctrl/poldi-ctrl.c:352
+-#, c-format
+-msgid "failed to retrieve smartcard data: %s"
+-msgstr ""
+-
+ #: src/pam/auth-method-localdb/auth-localdb.c:109
+ msgid "Please enter username: "
+ msgstr ""
+-- 
+2.17.0
+

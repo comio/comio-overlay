@@ -1,0 +1,29 @@
+From 2e1ef35d470d50f9888029fa051e8eb2c14bf0fa Mon Sep 17 00:00:00 2001
+From: NIIBE Yutaka <gniibe@fsij.org>
+Date: Thu, 1 May 2014 13:59:02 +0900
+Subject: [PATCH 24/52] * doc/gpl.texi: Use @center for Info.
+
+---
+ doc/gpl.texi | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/doc/gpl.texi b/doc/gpl.texi
+index ca0508f..92d087c 100644
+--- a/doc/gpl.texi
++++ b/doc/gpl.texi
+@@ -12,7 +12,12 @@ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+ @end display
+ 
++@iftex
+ @appendixsubsec Preamble
++@end iftex
++@ifinfo
++@center Preamble
++@end ifinfo
+ 
+   The licenses for most software are designed to take away your
+ freedom to share and change it.  By contrast, the GNU General Public
+-- 
+2.17.0
+
