@@ -1,6 +1,5 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -11,20 +10,13 @@ HOMEPAGE="https://github.com/Nefelim4ag/${PN}"
 
 SRC_URI="https://github.com/Nefelim4ag/${PN}/archive/${PV}.zip"
 
-LICENSE="GPL-3.0"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~x86"
 IUSE=""
 
-DEPEND="
-"
-RDEPEND="
-	${DEPEND}
-"
-
-src_compile() {
-	:
-}
+DEPEND=""
+RDEPEND="${DEPEND}"
 
 src_install() {
 	exeinto "/usr/bin"
