@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -47,7 +47,7 @@ src_install() {
 	fperms 0755 /usr/share/mlocate/mlocate.sh
 
 	dodir /etc/cron.daily
-	dosym /usr/share/mlocate/mlocate.sh /etc/cron.daily/mlocate.sh
+	dosym ../../usr/share/mlocate/mlocate.sh /etc/cron.daily/mlocate.sh
 
 	systemd_dounit "${FILESDIR}"/mlocate.service
 	systemd_dounit "${FILESDIR}"/mlocate.timer
