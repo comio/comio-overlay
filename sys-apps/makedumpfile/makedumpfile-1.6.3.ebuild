@@ -1,6 +1,5 @@
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header $
 
 EAPI=6
 
@@ -11,12 +10,12 @@ if [ ${PV} = 9999 ]; then
 	EGIT_REPO_URI="git://git.code.sf.net/p/{PN}/code"
 	KEYWORDS=""
 else
-	SRC_URI="http://downloads.sourceforge.net/project/makedumpfile/${PN}/${PV}/${PN}-${PV}.tar.gz"
+	SRC_URI="https://downloads.sourceforge.net/project/makedumpfile/${PN}/${PV}/${PN}-${PV}.tar.gz"
 	KEYWORDS="~amd64"
 fi
 
 DESCRIPTION="minimize and compress /proc/vmcore for use with crash."
-HOMEPAGE="http://sourceforge.net/projects/makedumpfile/"
+HOMEPAGE="https://sourceforge.net/projects/makedumpfile/"
 
 LICENSE="GPL-2+"
 SLOT="0"
@@ -40,5 +39,5 @@ src_compile () {
 src_install () {
 	emake DESTDIR="${D}" install
 
-	dodoc README COPYING IMPLEMENTATION
+	dodoc README IMPLEMENTATION
 }
