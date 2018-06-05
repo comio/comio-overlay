@@ -9,22 +9,19 @@ DESCRIPTION="Poldi is a PAM module implementing authentication via OpenPGP smart
 HOMEPAGE="http://www.gnupg.org/"
 SRC_URI="https://github.com/gpg/poldi/archive/release-${PV}.zip -> ${PN}-release-${PV}.zip"
 # ftp://ftp.gnupg.org/gcrypt/alpha/poldi/${P}.tar.bz2"
-LICENSE="GPL-2"
+LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 IUSE=""
 DEPEND="virtual/pam
-	dev-libs/libgcrypt
+	dev-libs/libgcrypt:0
 	>=dev-libs/libgpg-error-0.7
 	>=dev-libs/libksba-1.0.2
 	dev-libs/libassuan"
 
 RDEPEND=${DEPEND}
 
-PATCHES=(
-    "${FILESDIR}/patches-${PV}/" #*.patch
-)
-
+PATCHES=( "${FILESDIR}/patches-${PV}/" )
 
 S="${WORKDIR}/${PN}-release-${PV}"
 
@@ -38,7 +35,7 @@ src_configure() {
 }
 src_install() {
 	DESTDIR="${D}" emake install-conf-skeleton
-	dopammod ${S}/src/pam/pam_poldi.so
-	dodoc AUTHORS COPYING NEWS README THANKS
-	doinfo ${S}/doc/poldi.info
+	dopammod "${S}/src/pam/pam_poldi.so"
+	dodoc AUTHORS NEWS README THANKS
+	doinfo "${S}/doc/poldi.info"
 }

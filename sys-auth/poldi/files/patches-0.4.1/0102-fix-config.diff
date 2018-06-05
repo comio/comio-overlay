@@ -1,0 +1,14 @@
+Description: Debian specific change not require scdaemon-program
+Author: NIIBE Yutaka
+Last-Update: 2016-11-07
+
+diff --git a/conf/poldi.conf.skel b/conf/poldi.conf.skel
+index 3fed157..3babbb1 100644
+--- a/conf/poldi.conf.skel
++++ b/conf/poldi.conf.skel
+@@ -11,4 +11,4 @@ log-file /var/log/poldi
+ debug
+ 
+ # Specify SCDaemon executable
+-scdaemon-program /usr/lib/gnupg2/scdaemon
++# scdaemon-program /usr/lib/gnupg/scdaemon

@@ -1,0 +1,17 @@
+Description: Debian specific change to specify timeout
+Author: NIIBE Yutaka
+Last-Update: 2016-11-15
+
+Index: poldi-debian/src/pam/pam_poldi.c
+===================================================================
+--- poldi-debian.orig/src/pam/pam_poldi.c
++++ poldi-debian/src/pam/pam_poldi.c
+@@ -598,7 +598,7 @@ pam_sm_authenticate (pam_handle_t *pam_h
+ 	conv_tell (ctx->conv, _("Insert authentication card"));
+     }
+ 
+-  err = wait_for_card (ctx->scd, 0);
++  err = wait_for_card (ctx->scd, 3);
+   if (err)
+     {
+       log_msg_error (ctx->loghandle, "failed to wait for card insertion: %s",
