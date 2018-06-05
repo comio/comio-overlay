@@ -1,15 +1,12 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
-
-# inherit au
 
 SRC_URI="https://github.com/rcaloras/${PN}/archive/${PV}.tar.gz"
 KEYWORDS="~amd64 ~x86"
 
-DESCRIPTION="preexec and precmd hook functions for Bash in the style of Zsh. They aim to emulate the behavior as described for Zsh."
+DESCRIPTION="preexec and precmd hook functions for Bash in the style of Zsh."
 HOMEPAGE="https://github.com/rcaloras/bash-preexec"
 
 LICENSE="MIT"
