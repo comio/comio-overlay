@@ -43,7 +43,7 @@ src_configure() {
 
 src_install() {
 	exeinto /usr/bin
-	# chmod +s "src/scdrand"
+	chmod +s "src/scdrand"
 	doexe "src/scdrand"
 	doexe "src/scdtotp"
 
