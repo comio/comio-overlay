@@ -1,9 +1,11 @@
 [Unit]
 Description=Scdrand obtains random data from a smartcard and adds them to the kernel entropy pool.
-After=local-fs.target
+After=gpg-agent.socket
 
 [Service]
 Type=simple
+Restart=on-failure
+RestartSec=60s
 Environment=INTERVAL=10
 Environment=THRESHOLD=0
 Environment=ENTROPY=8
