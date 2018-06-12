@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit systemd
+inherit systemd fcaps
 
 DESCRIPTION="Tools for Scdaemon and OpenPGP smartcards"
 HOMEPAGE="https://incenp.org/dvlpt/scdtools.html"
@@ -38,4 +38,9 @@ src_install() {
 	systemd_douserunit "${FILESDIR}/scdrand.service"
 
 	dodoc AUTHORS NEWS README.md
+}
+
+
+pkg_postinst() {
+	fcaps cap_sys_admin "usr/bin/scdrand"
 }
