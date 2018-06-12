@@ -3,6 +3,8 @@
 
 EAPI=6
 
+inherit systemd
+
 DESCRIPTION="Tools for Scdaemon and OpenPGP smartcards"
 HOMEPAGE="https://incenp.org/dvlpt/scdtools.html"
 SRC_URI="https://incenp.org/files/softs/scdtools/0.3/${PN}-${PV}.tar.gz"
@@ -27,25 +29,13 @@ src_configure() {
 	econf
 }
 
-# The following src_compile function is implemented as default by portage, so
-# you only need to call it, if you need different behaviour.
-#src_compile() {
-	# emake is a script that calls the standard GNU make with parallel
-	# building options for speedier builds (especially on SMP systems).
-	# Try emake first.  It might not work for some packages, because
-	# some makefiles have bugs related to parallelism, in these cases,
-	# use emake -j1 to limit make to a single process.  The -j1 is a
-	# visual clue to others that the makefiles have bugs that have been
-	# worked around.
-
-	#emake
-#}
-
 src_install() {
 	exeinto /usr/bin
 	chmod +s "src/scdrand"
 	doexe "src/scdrand"
 	doexe "src/scdtotp"
+
+	systemd_douserunit "${FILESDIR}/scdrand.service"
 
 	dodoc AUTHORS NEWS README.md
 }

@@ -1,0 +1,10 @@
+[Unit]
+Description=Scdrand obtains random data from a smartcard and adds them to the kernel entropy pool.
+After=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/scdrand -l
+
+[Install]
+WantedBy=multi-user.target
