@@ -11,4 +11,4 @@ Environment=BYTES=128
 ExecStart=/usr/bin/scdrand -l -i ${INTERVAL} -t ${THRESHOLD} -e ${ENTROPY} ${BYTES}
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
