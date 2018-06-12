@@ -4,7 +4,11 @@ After=local-fs.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/scdrand -l
+Environment=INTERVAL=10
+Environment=THRESHOLD=0
+Environment=ENTROPY=8
+Environment=BYTES=128
+ExecStart=/usr/bin/scdrand -l -i ${INTERVAL} -t ${THRESHOLD} -e ${ENTROPY} ${BYTES}
 
 [Install]
 WantedBy=multi-user.target
