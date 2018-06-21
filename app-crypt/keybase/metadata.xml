@@ -11,4 +11,5 @@
 	<upstream>
 		<remote-id type="github">keybase/node-client</remote-id>
 	</upstream>
+	<use/>
 </pkgmetadata>
