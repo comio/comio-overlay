@@ -14,9 +14,10 @@ SRC_URI="https://github.com/keybase/client/archive/v${MY_PV}.tar.gz -> ${P}.tar.
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="+desktop"
 
 DEPEND="
+	desktop? ( sys-apps/yarn )
 	>=dev-lang/go-1.7:0
 	~app-crypt/kbfs-${PV}"
 
@@ -46,13 +47,35 @@ src_compile() {
 		-tags production \
 		-o "${T}/kbnm" \
 		github.com/keybase/client/go/kbnm || die
+	if use desktop; then
+		if use x86; then
+			electron_arch=ia32
+		elif use amd64; then
+			electron_arch=x64
+		fi
+		cd "${S}/shared"
+		env NODE_ENV=development yarn
+		env NODE_ENV=production yarn run package --platform linux --arch "${electron_arch}" --appVersion "${MY_PV}"
+	fi
 }
 
 src_install() {
 	dobin "${T}/keybase"
 	dobin "${T}/kbnm"
 	dodir "/var/lib/keybase"
-	keepdir "/var/lib/keybase"
+
+	if use desktop; then
+		if use x86; then
+			electron_arch=ia32
+		elif use amd64; then
+			electron_arch=x64
+		fi
+		insinto /var/lib/keybase
+		doins -r "${S}/shared/desktop/release/linux-${electron_arch}/Keybase-linux-${electron_arch}"
+		fperms +x "/var/lib/keybase/Keybase-linux-${electron_arch}/Keybase"
+		dosym "/var/lib/keybase/Keybase-linux-${electron_arch}/Keybase" "/usr/bin/Keybase"
+	fi
+
 	fowners keybasehelper:keybasehelper "/var/lib/keybase"
 	dobin "${S}/packaging/linux/run_keybase"
 	systemd_douserunit "${S}/packaging/linux/systemd/keybase.service"

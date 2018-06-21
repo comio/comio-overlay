@@ -11,5 +11,9 @@
 	<upstream>
 		<remote-id type="github">keybase/node-client</remote-id>
 	</upstream>
-	<use/>
+	<use>
+		<flag name="desktop">
+			Building the desktop client
+		</flag>
+	</use>
 </pkgmetadata>
