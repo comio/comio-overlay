@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit desktop gnome2-utils
+inherit desktop gnome2-utils systemd
 
 MY_P="keybase"
 
@@ -39,6 +39,7 @@ src_unpack() {
 	ln -vs "client-${PV}" "${P}" || die
 	mkdir -vp "${S}/src/github.com/keybase" || die
 	ln -vs "${S}" "${S}/src/github.com/keybase/client" || die
+	sed -i "${S}/packaging/linux/systemd/keybase.gui.service" -e "s,/opt/keybase/Keybase,/usr/bin/Keybase,g" || die
 }
 
 src_compile() {
@@ -60,6 +61,8 @@ src_install() {
 	done
 
 	domenu "${S}/packaging/linux/keybase.desktop"
+
+	systemd_douserunit "${S}/packaging/linux/systemd/keybase.gui.service"
 }
 
 pkg_preinst() {
