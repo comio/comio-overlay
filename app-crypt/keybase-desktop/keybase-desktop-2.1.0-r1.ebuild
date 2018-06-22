@@ -24,6 +24,7 @@ DEPEND="
 	${KEYBASE_DEPEND}"
 
 RDEPEND="
+	gnome-base/gconf
 	${KEYBASE_DEPEND}"
 
 electron_arch() {
