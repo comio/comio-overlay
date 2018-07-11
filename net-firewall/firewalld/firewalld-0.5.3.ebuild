@@ -22,13 +22,8 @@ RDEPEND="${PYTHON_DEPS}
 	dev-python/decorator[${PYTHON_USEDEP}]
 	>=dev-python/python-slip-0.2.7[dbus,${PYTHON_USEDEP}]
 	dev-python/pygobject:3[${PYTHON_USEDEP}]
-	|| (
-		>=net-firewall/iptables-1.8.0[ipv6]
-		(
-			<net-firewall/iptables-1.8.0[ipv6]
-			net-firewall/ebtables
-		)
-	)
+	net-firewall/ebtables
+	net-firewall/iptables[ipv6]
 	net-firewall/ipset
 	|| ( >=sys-apps/openrc-0.11.5 sys-apps/systemd )
 	gui? (
