@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>luigi.mantellini@gmail.com</email>
+		<name>Luigi 'Comio' Mantellini</name>
+	</maintainer>
+	<maintainer type="project">
+		<email>proxy-maint@gentoo.org</email>
+		<name>Proxy Maintainers</name>
+	</maintainer>
+	<upstream>
+		<changelog>https://flacon.github.io/changelog/</changelog>
+		<remote-id type="github">flacon/flacon</remote-id>
+	</upstream>
+	<use>
+		<flag name="aac">Enable AAC output support</flag>
+		<flag name="ape">Enable APE input support</flag>
+		<flag name="mp3gain">Enable MP3 Replay Gain support</flag>
+		<flag name="tta">Enable TTA input support</flag>
+		<flag name="vorbis">Enable Vorbis output support</flag>
+		<flag name="vorbisgain">Enable Vorbis Replay Gain support</flag>
+		<flag name="wavpack">Enable WavPack input and output support</flag>
+	</use>
+</pkgmetadata>
