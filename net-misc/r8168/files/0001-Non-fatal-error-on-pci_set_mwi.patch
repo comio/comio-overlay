@@ -1,0 +1,25 @@
+From 2a228d01ee55dc1ad537f18a70b46de3189131a4 Mon Sep 17 00:00:00 2001
+From: Luigi 'Comio' Mantellini <luigi.mantellini@gmail.com>
+Date: Sun, 7 Oct 2018 09:31:20 +0200
+Subject: [PATCH] Non fatal error on pci_set_mwi
+
+---
+ src/r8168_n.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/r8168_n.c b/src/r8168_n.c
+index 4cbe4c2..933b057 100755
+--- a/src/r8168_n.c
++++ b/src/r8168_n.c
+@@ -25053,7 +25053,7 @@ rtl8168_init_board(struct pci_dev *pdev,
+ 
+         rc = pci_set_mwi(pdev);
+         if (rc < 0)
+-                goto err_out_disable;
++                dev_info(&pdev->dev, "Mem-Wr-Inval unavailable\n");
+ 
+         /* save power state before pci_enable_device overwrites it */
+         pm_cap = pci_find_capability(pdev, PCI_CAP_ID_PM);
+-- 
+2.19.1
+
