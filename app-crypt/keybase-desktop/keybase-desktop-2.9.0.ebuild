@@ -40,6 +40,10 @@ src_unpack() {
 	ln -vs "client-${PV}" "${P}" || die
 	mkdir -vp "${S}/src/github.com/keybase" || die
 	ln -vs "${S}" "${S}/src/github.com/keybase/client" || die
+}
+
+src_prepare() {
+	default
 	sed -i "${S}/packaging/linux/systemd/keybase.gui.service" -e "s,/opt/keybase/Keybase,/usr/bin/Keybase,g" || die
 }
 
@@ -54,7 +58,7 @@ src_install() {
 	insinto "/var/lib/keybase"
 	doins -r "${S}/shared/desktop/release/linux-`electron_arch`/Keybase-linux-`electron_arch`"
 	fperms +x "/var/lib/keybase/Keybase-linux-`electron_arch`/Keybase"
-	dosym "/var/lib/keybase/Keybase-linux-`electron_arch`/Keybase" "/usr/bin/Keybase"
+	dosym "${EPREFIX}/var/lib/keybase/Keybase-linux-`electron_arch`/Keybase" "/usr/bin/Keybase"
 
 	# Copy in the icon images.
 	for size in 16x16 32x32 128x128 256x256 512x512 ; do
