@@ -16,7 +16,7 @@ LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
 DEPEND=""
-RDEPEND=""
+RDEPEND="net-misc/rclone"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
 
