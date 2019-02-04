@@ -8,7 +8,7 @@ inherit eutils systemd
 
 DESCRIPTION="rclone support utility."
 HOMEPAGE="https://github.com/comio/rclone-tools"
-COMMIT="acc831ad53d8914102a9c282a0b61d772da42069"
+COMMIT="6bf59f02c67b43187b31c544d11308439c4f094b"
 SRC_URI="https://github.com/comio/rclone-tools/archive/${COMMIT}.zip -> ${P}.zip"
 
 LICENSE="GPL-3"
