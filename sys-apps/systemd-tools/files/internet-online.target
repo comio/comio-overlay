@@ -1,0 +1,5 @@
+[Unit]
+Description=Public network is Online and internet is reachable
+Documentation=man:systemd.special(7)
+Documentation=https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget
+After=network-online.target

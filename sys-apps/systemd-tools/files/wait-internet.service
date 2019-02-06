@@ -1,0 +1,14 @@
+[Unit]
+Description=Wait forever an ping answer, then exit
+After=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment=TARGET=1.1.1.1
+Environment=SLEEP_TIMEOUT=10s
+ExecStart=/bin/sh -c "while ! ping -q -c 1 ${TARGET} &>/dev/null; do sleep ${SLEEP_TIMEOUT}; done"
+TimeoutStartSec=infinity
+
+[Install]
+WantedBy=internet-online.target

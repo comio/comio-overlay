@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>luigi.mantellini@google.com</email>
+		<name>Luigi Mantellini</name>
+	</maintainer>
+	<longdescription lang="en">
+		My systemd services.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">comio/comio-overlay</remote-id>
+	</upstream>
+</pkgmetadata>

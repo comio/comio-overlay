@@ -1,0 +1,17 @@
+[Unit]
+Description=Wait for hdmi device
+After=local-fs.target
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+Environment=SLEEP_TIMEOUT=5s
+Environment=STATUS_FILE=/sys/class/drm/card0-HDMI-A-3/status
+Environment=CONNECTED_STATUS=connected
+RemainAfterExit=yes
+ExecStart=/bin/sh -c "while [ $(cat ${STATUS_FILE}) != ${CONNECTED_STATUS} ]; do sleep ${SLEEP_TIMEOUT}; done;"
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target
+RequiredBy=display-manager.service
