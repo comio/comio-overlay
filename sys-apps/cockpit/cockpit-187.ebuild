@@ -78,4 +78,5 @@ src_install(){
 	ewarn "use at your own risk"
 	newpamd "${FILESDIR}/cockpit.pam" cockpit
 	dodoc README.md AUTHORS
+	keepdir /var/lib/cockpit
 }
