@@ -16,7 +16,7 @@ fi
 
 DESCRIPTION="A program to sync files to and from various cloud storage providers"
 HOMEPAGE="https://rclone.org/"
-
+RESTRICT="mirror"
 LICENSE="MIT"
 SLOT="0"
 IUSE=""
