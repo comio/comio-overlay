@@ -7,7 +7,7 @@ inherit systemd
 
 DESCRIPTION="Another (FUSE based) union filesystem"
 HOMEPAGE="https://github.com/trapexit/mergerfs"
-SRC_URI="https://github.com/trapexit/mergerfs/releases/download/${PV}/${PN}-${PV}.tar.gz"
+SRC_URI="https://github.com/trapexit/mergerfs/archive/${PV}.tar.gz -> ${PN}-${PV}.tar.gz"
 
 LICENSE="ISC"
 SLOT="0"
