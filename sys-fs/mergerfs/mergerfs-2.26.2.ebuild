@@ -26,7 +26,7 @@ DEPEND="
 "
 
 PATCHES=(
-    "${FILESDIR}/custom_cxxflags.patch"
+     "${FILESDIR}/custom_cxxflags.patch"
 )
 
 src_compile() {
@@ -38,7 +38,7 @@ src_compile() {
 }
 
 src_install() {
-	dobin mergerfs
+	dobin build/mergerfs
 	dodoc README.md
 	doman man/mergerfs.1
 }

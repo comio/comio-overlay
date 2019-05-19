@@ -1,14 +1,18 @@
 diff --git a/Makefile b/Makefile
-index 0b3837c..537aed0 100644
+index 9d54d61..3f6d949 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -83,7 +83,8 @@ CXXFLAGS    = $(OPTS) \
-               -DFUSE_USE_VERSION=29 \
-               -MMD \
- 	      -DUSE_XATTR=$(USE_XATTR) \
--	      -DUGID_USE_RWLOCK=$(UGID_USE_RWLOCK)
-+	      -DUGID_USE_RWLOCK=$(UGID_USE_RWLOCK) \
-+	      $(CXXFLAGS)
+@@ -60,13 +60,11 @@ endif
  
- PREFIX        = /usr/local
- EXEC_PREFIX   = $(PREFIX)
+ UGID_USE_RWLOCK = 0
+ 
+-OPTS 	    = -O2
+ SRC	    = $(wildcard src/*.cpp)
+ OBJS        = $(SRC:src/%.cpp=build/%.o)
+ DEPS        = $(SRC:src/%.cpp=build/%.d)
+ MANPAGE     = mergerfs.1
+ CXXFLAGS   += \
+-	      $(OPTS) \
+               $(DEBUG_FLAGS) \
+               $(STATIC_FLAGS) \
+               $(LTO_FLAGS) \
