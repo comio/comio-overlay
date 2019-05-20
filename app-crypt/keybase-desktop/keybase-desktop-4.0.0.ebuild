@@ -1,9 +1,9 @@
 # Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit desktop gnome2-utils systemd
+inherit desktop xdg systemd
 
 MY_P="keybase-${PV}"
 
@@ -46,6 +46,7 @@ src_unpack() {
 src_prepare() {
 	default
 	sed -i "${S}/packaging/linux/systemd/keybase.gui.service" -e "s,/opt/keybase/Keybase,/usr/bin/Keybase,g" || die
+	xdg_src_prepare
 }
 
 src_compile() {
@@ -72,14 +73,13 @@ src_install() {
 }
 
 pkg_preinst() {
-	gnome2_icon_savelist
-	gnome2_schemas_savelist
+	xdg_pkg_preinst
 }
 
 pkg_postinst() {
-	gnome2_icon_cache_update
+	xdg_pkg_postinst
 }
 
 pkg_postrm() {
-	gnome2_icon_cache_update
+	xdg_pkg_postrm
 }
