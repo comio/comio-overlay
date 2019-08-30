@@ -3,7 +3,7 @@
 
 EAPI=6
 inherit golang-build bash-completion-r1
-EGO_PN="github.com/ncw/${PN}"
+EGO_PN="github.com/rclone/${PN}"
 
 if [[ ${PV} == *9999* ]]; then
 	inherit golang-vcs
