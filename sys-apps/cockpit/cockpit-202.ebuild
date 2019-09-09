@@ -9,6 +9,7 @@ KEYWORDS="~amd64 ~x86"
 DESCRIPTION="Server Administration Web Interface "
 HOMEPAGE="http://cockpit-project.org/"
 SRC_URI="https://github.com/cockpit-project/${PN}/releases/download/${PV}/${P}.tar.xz"
+RESTRICT="mirror"
 
 if [[ ${PV} == 9999* ]] ; then
 	inherit git-r3
