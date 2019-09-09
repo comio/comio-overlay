@@ -12,7 +12,7 @@ KEYWORDS="~amd64 ~x86"
 LICENSE="LGPL-2.1+"
 SLOT="0"
 IUSE="infiniband discovery systemd X qt4 python papi perfevent manager webapi doc"
-
+RESTRICT="mirror"
 DEPEND="
     systemd? ( sys-apps/systemd )
     X? ( x11-libs/libXt )
