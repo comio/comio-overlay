@@ -10,7 +10,7 @@ if [[ ${PV} == *9999* ]]; then
 else
 	KEYWORDS="~amd64 ~arm ~x86"
 	EGIT_COMMIT="v${PV}"
-	SRC_URI="https://${EGO_PN}/releases/download/v1.49.2/rclone-v1.49.2.tar.gz -> ${P}.tar.gz"
+	SRC_URI="https://${EGO_PN}/releases/download/${EGIT_COMMIT}/rclone-${EGIT_COMMIT}.tar.gz -> ${P}.tar.gz"
 	inherit golang-vcs-snapshot
 fi
 
