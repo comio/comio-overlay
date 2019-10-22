@@ -13,7 +13,7 @@ SRC_URI="https://github.com/keybase/client/archive/v${PV}.tar.gz -> ${MY_P}.tar.
 FEATURES="-network-sandbox"
 RESTRICT="mirror"
 
-LICENSE="BSD"
+LICENSE="Apache-2.0 BSD BSD-2 LGPL-3 MIT MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""

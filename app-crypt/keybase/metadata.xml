@@ -5,6 +5,10 @@
 		<email>nicolasbock@gentoo.org</email>
 		<name>Nicolas Bock</name>
 	</maintainer>
+	<maintainer type="person">
+		<email>luigi.mantellini@gmail.com</email>
+		<name>Luigi Mantellini</name>
+	</maintainer>
 	<longdescription lang="en">
 		Get a public key, safely, starting just with someone's social media username(s)
 	</longdescription>
