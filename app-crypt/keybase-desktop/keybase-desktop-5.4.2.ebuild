@@ -53,7 +53,7 @@ src_prepare() {
 src_compile() {
 	cd "${S}/shared"
 	env NODE_ENV=development yarn || die
-	env NODE_ENV=production yarn run package --platform linux --arch "`electron_arch`" --appVersion "${PV}" || die
+	env NODE_ENV=production yarn run package -- --platform linux --arch "`electron_arch`" --appVersion "${PV}" || die
 }
 
 src_install() {
