@@ -1,19 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>luigi.mantellini@google.com</email>
-		<name>Luigi Mantellini</name>
+		<email>slashbeast@gentoo.org</email>
+		<name>Piotr Karbowski</name>
 	</maintainer>
-	<longdescription lang="en">
-		Get a public key, safely, starting just with someone's social media username(s)
-	</longdescription>
 	<upstream>
 		<remote-id type="github">trapexit/mergerfs</remote-id>
 	</upstream>
-	<use>
-		<flag name="lto">
-			Perform link time optimization.
-		</flag>
-	</use>
 </pkgmetadata>
