@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
 inherit systemd fcaps
 
@@ -12,7 +12,7 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
-# RESTRICT="strip"
+RESTRICT="mirror"
 
 DEPEND="
 	app-crypt/gnupg
@@ -22,8 +22,6 @@ DEPEND="
 "
 
 RDEPEND="${DEPEND}"
-
-PATCHES=( "${FILESDIR}/patches/0001-Add-limits.h-include.patch" )
 
 src_configure() {
 	econf
