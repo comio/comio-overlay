@@ -1,0 +1,25 @@
+From 85aed79294c5c83b69cf8eacbe3b5a0da7542ea8 Mon Sep 17 00:00:00 2001
+From: Luigi 'Comio' Mantellini <luigi.mantellini@gmail.com>
+Date: Mon, 4 Dec 2023 15:41:04 +0100
+Subject: [PATCH] Fix autopilot version
+
+---
+ Cargo.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Cargo.toml b/Cargo.toml
+index a253722..ce71206 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -46,7 +46,7 @@ features = ["derive"]
+ libc = "0.2"
+ 
+ [target.'cfg(windows)'.dependencies]
+-autopilot = {git="https://github.com/autopilot-rs/autopilot-rs"}
++autopilot = "0.4.0"
+ 
+ [features]
+ default = ["sqlite-bundled"]
+-- 
+2.43.0
+

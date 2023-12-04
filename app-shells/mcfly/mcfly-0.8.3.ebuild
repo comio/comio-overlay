@@ -16,6 +16,7 @@ CRATES="
 	anstyle-query@1.0.0
 	anstyle-wincon@3.0.1
 	autocfg@1.1.0
+	autopilot@0.4.0
 	bitflags@1.3.2
 	bitflags@2.4.1
 	block@0.1.6
@@ -167,14 +168,15 @@ DESCRIPTION="McFly replaces your default ctrl-r shell history search with an int
 # Double check the homepage as the cargo_metadata crate
 # does not provide this value so instead repository is used
 HOMEPAGE="https://github.com/cantino/mcfly"
-SRC_URI="${CARGO_CRATE_URIS}"
+SRC_URI="https://github.com/cantino/mcfly/archive/v${PV}.tar.gz -> ${P}.tar.gz
+	 $(cargo_crate_uris)"
+RESTRICT="mirror"
 
 # License set may be more restrictive as OR is not respected
 # use cargo-license for a more accurate license picture
 LICENSE="Apache-2.0 Apache-2.0-with-LLVM-exceptions BSD-2 Boost-1.0 MIT Unicode-DFS-2016 Unlicense ZLIB"
 SLOT="0"
 KEYWORDS="~amd64"
-RESTRICT="mirror"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
@@ -183,6 +185,10 @@ BDEPEND=""
 # rust does not use *FLAGS from make.conf, silence portage warning
 # update with proper path to binaries this crate installs, omit leading /
 QA_FLAGS_IGNORED="usr/bin/${PN}"
+
+PATCHES=(
+	"${FILESDIR}"/0001-Fix-autopilot-version.patch
+)
 
 src_install() {
 	cargo_src_install
