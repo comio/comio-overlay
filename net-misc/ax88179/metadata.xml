@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>luigi.mantellini@gmail.com</email>
+		<name>Luigi Mantellini</name>
+	</maintainer>
+	<longdescription>Official AX88179 driver</longdescription>
+	<use>
+		<flag name="ptp">Enable PTP support</flag>
+	</use>
+</pkgmetadata>
