@@ -1,10 +1,10 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 KEYWORDS="~amd64 ~x86"
 
-inherit eutils systemd
+inherit systemd
 
 DESCRIPTION="OverlayFS support utility."
 HOMEPAGE="https://github.com/comio/overlayfs-tools"
@@ -17,6 +17,7 @@ SLOT="0"
 IUSE=""
 DEPEND=""
 RDEPEND=""
+RESTRICT="mirror"
 
 S="${WORKDIR}/${PN}-${COMMIT}"
 
