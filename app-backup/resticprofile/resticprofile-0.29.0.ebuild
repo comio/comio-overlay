@@ -14,7 +14,7 @@ DESCRIPTION="Configuration profiles manager for restic backup"
 HOMEPAGE="https://creativeprojects.github.io/resticprofile/"
 RESTRICT="mirror"
 
-LICENSE="GPL-3.0"
+LICENSE="GPL-3"
 SLOT="0"
 IUSE=""
 
