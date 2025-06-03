@@ -1,0 +1,21 @@
+--- a/src/screencast.cpp	2025-06-03 11:56:56.668700746 +0200
++++ b/src/screencast.cpp	2025-06-03 11:58:16.278828381 +0200
+@@ -282,6 +282,7 @@
+         QVariantList outputs;
+         QList<WindowRestoreInfo> windows;
+         WaylandIntegration::Streams streams;
++        QPointer<ScreenCastSession> guardedSession(session);
+         Screencasting::CursorMode cursorMode = Screencasting::CursorMode(session->cursorMode());
+         for (const auto &output : std::as_const(selectedOutputs)) {
+             WaylandIntegration::Stream stream;
+@@ -332,6 +333,10 @@
+             return 2;
+         }
+ 
++        if (!guardedSession) {
++            return 2;
++        }
++
+         session->setStreams(streams);
+         results.insert(QStringLiteral("streams"), QVariant::fromValue<WaylandIntegration::Streams>(streams));
+         if (allowRestore) {
