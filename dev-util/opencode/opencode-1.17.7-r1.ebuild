@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit bash-completion-r1 desktop unpacker xdg
+inherit bash-completion-r1 desktop unpacker xdg-utils
 
 DESCRIPTION="The open source coding agent"
 HOMEPAGE="https://github.com/anomalyco/opencode"
@@ -15,13 +15,18 @@ SRC_URI="
         amd64? ( https://github.com/anomalyco/opencode/releases/download/v${PV}/opencode-desktop-linux-amd64.deb )
         arm64? ( https://github.com/anomalyco/opencode/releases/download/v${PV}/opencode-desktop-linux-arm64.deb ) )"
 
-IUSE="bash-completion desktop"
+IUSE="apparmor bash-completion desktop"
+REQUIRED_USE="apparmor? ( desktop )"
 RESTRICT="mirror strip"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 
 RDEPEND="
+    apparmor? (
+        sec-policy/apparmor-profiles
+        sys-apps/apparmor:=
+    )
     desktop? (
         x11-libs/gtk+:3
         x11-libs/libnotify
@@ -34,12 +39,6 @@ RDEPEND="
     )
 "
 
-BDEPEND="
-    bash-completion? (
-        app-shells/bash-completion
-    )
-"
-
 QA_PREBUILT="usr/bin/${PN}
     opt/OpenCode/ai.opencode.desktop
     opt/OpenCode/chrome-sandbox
@@ -48,14 +47,12 @@ QA_PREBUILT="usr/bin/${PN}
     opt/OpenCode/resources/app.asar.unpacked/node_modules/*/*/*.node
     opt/OpenCode/resources/app.asar.unpacked/node_modules/*/*/prebuilds/*/*.node"
 
-S="${WORKDIR}"
+S="${WORKDIR}"/
 
 src_unpack() {
     unpacker_src_unpack
 
-    unpacker "${S}/usr/share/doc/opencode/changelog.gz"
-    rm "${S}/usr/share/doc/opencode/changelog.gz"
-    mv "${S}/changelog" "${S}/usr/share/doc/opencode/"
+    gunzip "${S}/usr/share/doc/opencode/changelog.gz" || die
 }
 
 src_install() {
@@ -68,16 +65,24 @@ src_install() {
     fi
 
     if use desktop; then
+        if use apparmor; then
+            einfo "Installing AppArmor profile"
+            insinto /etc/apparmor.d/
+            newins opt/OpenCode/resources/apparmor-profile ai.opencode.desktop
+        fi
+
         einfo "Installing desktop files and icons"
         insinto /opt
         doins -r opt/OpenCode
         fperms 0755 /opt/OpenCode/{ai.opencode.desktop,chrome-sandbox,chrome_crashpad_handler}
+        dosym "${EPREFIX}/opt/OpenCode/ai.opencode.desktop" "${EPREFIX}/usr/bin/ai.opencode.desktop"
 
         domenu usr/share/applications/*.desktop
         for icon_size in 32 64 128; do
             doicon --size ${icon_size} --theme hicolor ${S}/usr/share/icons/hicolor/${icon_size}x${icon_size}/apps/*.png
         done
 
+        einfo "Installing documentation"
         dodoc -r usr/share/doc/opencode/
     fi
 }
@@ -86,6 +91,19 @@ pkg_postinst() {
     if use desktop; then
         xdg_desktop_database_update
         xdg_icon_cache_update
+    fi
+
+    if use apparmor && [[ -z ${ROOT} && -e /sys/kernel/security/apparmor/profiles &&
+        $(wc -l < /sys/kernel/security/apparmor/profiles) -gt 0 ]]; then
+        apparmor_parser -r "${EPREFIX}/etc/apparmor.d/ai.opencode.desktop"
+    fi
+}
+
+pkg_prerm() {
+    if use apparmor && [[ -z ${ROOT} && -e /sys/kernel/security/apparmor/profiles &&
+        $(wc -l < /sys/kernel/security/apparmor/profiles) -gt 0 ]]; then
+        # unload apparmor profile
+        apparmor_parser --remove "${EPREFIX}/etc/apparmor.d/ai.opencode.desktop"
     fi
 }
 
