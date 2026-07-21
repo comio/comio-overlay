@@ -1,22 +1,24 @@
-# Projject Conventions
+# Project Conventions
 
 ## Build Command
 
 ```bash
 ebuild package-version.ebuild digest # Refresh the Manifest file
-sudo ebuild package-version.ebuild clean # Clean the build directory
-sudo ebuild package-version.ebuild compile # Compile the package
-sudo ebuild package-version.ebuild install # Install the package
-sudo ebuild package-version.ebuild merge # Merge the package
+pkexec ebuild package-version.ebuild clean # Clean the build directory
+pkexec ebuild package-version.ebuild compile # Compile the package
+pkexec ebuild package-version.ebuild install # Install the package
+pkexec ebuild package-version.ebuild merge # Merge the package
 ```
 
 To ensure the quality and integrity of the package, it is important to follow the above commands in the specified order.
 
-After any package-versione.ebuild file modification:
+After any package-version.ebuild file modification:
     - you must recalculate the Manifest file using the `digest` command
     - clean the build directory using the `clean` command
 
 If required, you can also compile, install, and merge the package using the respective commands.
+
+Instead of using `sudo` for the `ebuild` command, it is recommended to use `pkexec` to ensure that the command is executed with the necessary privileges.
 
 ## Architecture and directory structure
 
