@@ -27,6 +27,7 @@ RDEPEND="
 		virtual/libusb:0
 	)
 	network? ( virtual/libusb )
+	dev-libs/libxml2-compat
 "
 
 REQUIRED_USE="
