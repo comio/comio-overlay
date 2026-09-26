@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>luigi.mantellini@gmail.com</email>
+		<name>Luigi 'Comio' Mantellini</name>
+	</maintainer>
+	<maintainer type="organization" proxied="yes">
+		<email>ArubaPEC S.p.A.</email>
+		<name>support@arubapec.it</name>
+	</maintainer>
+</pkgmetadata>
